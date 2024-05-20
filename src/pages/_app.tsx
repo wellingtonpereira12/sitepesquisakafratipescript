@@ -1,7 +1,7 @@
-import { createElement } from 'react';
+import 'tailwindcss/tailwind.css'
 
 function MyApp({ Component, pageProps }) {
-  return createElement(Component, pageProps);
+  return <Component {...pageProps} />
 }
 
-export default MyApp;
+export default MyApp
