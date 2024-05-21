@@ -247,36 +247,35 @@ export default function Dashboard() {
       <main>
       <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         {/* começo notificação */}
-        <div className="h-screen md:flex">
-    <div className="relative overflow-hidden flex justify-bot items-end bg-gradient-to-b from-gray-200 to-gray-300 w-1/2">
-        <div>
-            {/* grid */} 
-        </div>
-    </div>
-    <div className="relative overflow-hidden flex md:w-1/2 justify-top py-10 items-top bg-white mx-7">
-        <form className="bg-white">
-            <h1 className="text-gray-800 font-bold text-2xl mb-1">Cadastre sua procura</h1>
-            <p className="text-sm font-normal text-gray-600 mb-7">Assim que você se cadastrar em nosso sistema, ele começará a buscar por você. Quando encontrar algo relevante, você receberá um alerta na página inicial.</p>
-            <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
-                </svg>
-                <input className="pl-2 outline-none border-none" type="text" name="" id="" placeholder="Item Procurado" />
-            </div>
+        <div className="relative overflow-hidden flex md:w-1/2 justify-center py-10 items-center bg-white mx-7">
+            <form className="bg-white">
+                <h1 className="text-gray-800 font-bold text-2xl mb-1">Cadastre sua procura</h1>
+                <p className="text-sm font-normal text-gray-600 mb-7">Assim que você se cadastrar em nosso sistema, ele começará a buscar por você. Quando encontrar algo relevante, você receberá um alerta na página inicial.</p>
                 <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
                     </svg>
-                    <input className="pl-2 outline-none border-none" type="text" name="" id="" placeholder="Valor Máximo" />
+                    <input className="pl-2 outline-none border-none" type="text" name="" id="" placeholder="Item Procurado" />
                 </div>
-                <button type="submit" className="block w-full bg-indigo-600 mt-4 py-2 rounded-2xl text-white font-semibold mb-2">Adicionar</button>
-        </form>
-    </div>
-</div>
+                    <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+                        </svg>
+                        <input className="pl-2 outline-none border-none" type="text" name="" id="" placeholder="Valor Máximo" />
+                    </div>
+                    <button type="submit" className="block w-full bg-indigo-600 mt-4 py-2 rounded-2xl text-white font-semibold mb-2">Adicionar</button>
+            </form>
+        </div>
+        <div className="h-screen md:flex">
+        <div className="">
+            <div>
+                {/* grid */} 
+            </div>
+        </div>
+        </div>
         {/* fim notificação */}
       </div>
-</main>
-
+      </main>
     </div>
   )
 }
