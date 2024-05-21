@@ -39,8 +39,8 @@ export function AuthProvider({ children }) {
         }
       }, [])
 
-    async function signIn({ email, password}: SignInData) { // essa função tenho que jogar para o node processar
-        const { token, user } = await signInRequest({
+    async function signIn({ email, password}: SignInData) { 
+        const { token, user } = await signInRequest({ // essa função tenho que jogar para o node processar
             email,
             password
         });

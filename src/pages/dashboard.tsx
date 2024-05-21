@@ -19,7 +19,7 @@ export default function Dashboard() {
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    //api.get('/users');
+   // api.get('/validaToken');
   }, [])
  
   return (
@@ -224,9 +224,9 @@ export default function Dashboard() {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  try {
   const apiClient = getAPIClient(ctx);
   const { ['kafra.token']: token } = parseCookies(ctx)
-
   if (!token) {
     return {
       redirect: {
@@ -235,10 +235,23 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       }
     }
   }
-
-  await apiClient.get('/users')
-
+   const resultado =  await apiClient.get('/validaToken')
+   console.log(resultado.data.resultado);
   return {
     props: {}
+  }
+
+  } catch (error) {
+    if (error.response && error.response.status === 400) {
+      return {
+        redirect: {
+          destination: '/',
+          permanent: false,
+        }
+      };
+    } else {
+      // Handle other errors here if needed
+      throw error; // Re-throw the error to be caught by Next.js error handling
+    }
   }
 }
