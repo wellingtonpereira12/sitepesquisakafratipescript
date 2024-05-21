@@ -1,4 +1,4 @@
-import { Fragment, useContext, useEffect } from 'react'
+import { Fragment, useContext, useEffect, useState } from 'react'
 import Head from 'next/head'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
@@ -21,11 +21,6 @@ function classNames(...classes) {
 
 export default function Dashboard() {
   const { user } = useContext(AuthContext);
-    // useEffect(() => {
-    //   api.get('/validaToken');
-    // }, [])
-    let clickMenu;
-
   const router = useRouter();   
     // This will give you the current page path
 
@@ -75,7 +70,7 @@ export default function Dashboard() {
                         itemIdx === 0 ? (
                           <Fragment key={item}>
                             {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
-                            <a href="/dashboard" className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
+                            <a href="/dashboard" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                               {item}
                             </a>
                           </Fragment>
@@ -83,7 +78,7 @@ export default function Dashboard() {
                           <a
                             key={item}
                             href="/procura"
-                            className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                            className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
                           >
                             {item}
                           </a>
@@ -177,8 +172,8 @@ export default function Dashboard() {
                 {navigation.map((item, itemIdx) =>
                   itemIdx === 0 ? (
                     <Fragment key={item}>
-                      {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
-                      <a href="/dashboard" className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">
+                      {/* text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium*/}
+                      <a href="/dashboard" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
                         {item}
                       </a>
                     </Fragment>
@@ -186,7 +181,7 @@ export default function Dashboard() {
                     <a
                       key={item}
                       href="/procura"
-                      className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                      className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
                     >
                       {item}
                     </a>
@@ -241,39 +236,65 @@ export default function Dashboard() {
 
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold text-gray-900">Home</h1>
+          <h1 className="text-3xl font-bold text-gray-900">Cadastre sua procura</h1>
         </div>
       </header>
       <main>
-      <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        {/* começo notificação */}
-        <div className="relative overflow-hidden flex md:w-1/2 justify-center py-10 items-center bg-white mx-7">
+      <div className="py-1">
+        {/* começo meio da tela */}
+        {/* cadastro começo */}
+        <div className="relative flex justify-center py-10">
             <form className="bg-white">
-                <h1 className="text-gray-800 font-bold text-2xl mb-1">Cadastre sua procura</h1>
-                <p className="text-sm font-normal text-gray-600 mb-7">Assim que você se cadastrar em nosso sistema, ele começará a buscar por você. Quando encontrar algo relevante, você receberá um alerta na página inicial.</p>
+                <p className="text-sm font-normal text-gray-600 mb-1">Assim que você se cadastrar em nosso sistema, ele começará a buscar por você. Quando encontrar algo relevante, você receberá um alerta na página inicial.</p>
+                <p className="text-sm font-normal text-gray-600 mb-3">Obs: O item procurado é o mesmo que é fornecido ao realizar uma consulta no site do Kafraverse.</p>
                 <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
                         <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
                     </svg>
-                    <input className="pl-2 outline-none border-none" type="text" name="" id="" placeholder="Item Procurado" />
+                    <input className="pl-2 outline-none border-none" type="text" name="" id="" placeholder="Nome do item Procurado" />
                 </div>
                     <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
                         </svg>
-                        <input className="pl-2 outline-none border-none" type="text" name="" id="" placeholder="Valor Máximo" />
+                        <input className="pl-2 outline-none border-none" type="text" name="" id="" placeholder="Valor Máximo" /> 
                     </div>
+                    <select className="flex w-full items-center border-2 py-2 px-3 rounded-2xl mb-4">
+                            <option className="pl-2 outline-none border-none" value="zeny">Zeny</option>
+                            <option className="pl-2 outline-none border-none" value="cash">Cash</option>
+                    </select>
                     <button type="submit" className="block w-full bg-indigo-600 mt-4 py-2 rounded-2xl text-white font-semibold mb-2">Adicionar</button>
             </form>
         </div>
-        <div className="h-screen md:flex">
-        <div className="">
-            <div>
-                {/* grid */} 
+         {/* cadastro fim */}
+         {/* list inicio */}
+         <div className="max-w-lg mx-auto my-10 bg-white p-8 rounded-xl shadow shadow-slate-300">
+            <div className="flex flex-row justify-between items-center">
+                <div>
+                    <h1 className="text-3xl font-medium">Lista de itens cadastrados</h1>
+                </div>
             </div>
+            <div id="tasks" className="my-5">
+                <div id="task" className="flex justify-between items-center border-b border-slate-200 py-3 px-2 border-l-4  border-l-transparent">
+                    <div className="inline-flex items-center space-x-2">
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6 text-slate-500">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                            </svg>                          
+                        </div>
+                        <div className="text-slate-500">drops zeny5000</div>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-4 h-4 text-slate-500 hover:text-slate-700 hover:cursor-pointer">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                        </svg>                      
+                    </div>
+                </div>
+            </div>
+            <p className="text-xs text-slate-500 text-center">Os itens dessa lista seram procurados no site</p>
         </div>
-        </div>
-        {/* fim notificação */}
+        {/* list fim */}
+        {/* fim meio da tela */}
       </div>
       </main>
     </div>
