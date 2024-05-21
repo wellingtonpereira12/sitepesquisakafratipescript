@@ -31,7 +31,6 @@ export function AuthProvider({ children }) {
 
     useEffect(() => {
         const { 'kafra.token': token } = parseCookies()
-    
         if (token) {
           recoverUserInformation().then(response => { //essa fução para node
             setUser(response.user)

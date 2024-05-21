@@ -17,11 +17,9 @@ function classNames(...classes) {
 
 export default function Dashboard() {
   const { user } = useContext(AuthContext);
-
-  useEffect(() => {
-   // api.get('/validaToken');
-  }, [])
- 
+    // useEffect(() => {
+    //   api.get('/validaToken');
+    // }, [])
   return (
     <div>
       <Head>
@@ -223,35 +221,35 @@ export default function Dashboard() {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  try {
-  const apiClient = getAPIClient(ctx);
-  const { ['kafra.token']: token } = parseCookies(ctx)
-  if (!token) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      }
-    }
-  }
-   const resultado =  await apiClient.get('/validaToken')
-   console.log(resultado.data.resultado);
-  return {
-    props: {}
-  }
+ export const getServerSideProps: GetServerSideProps = async (ctx) => {
+   try {
+   const apiClient = getAPIClient(ctx);
+   const { ['kafra.token']: token } = parseCookies(ctx)
+   if (!token) {
+     return {
+       redirect: {
+         destination: '/',
+         permanent: false,
+       }
+     }
+   }
+    const resultado =  await apiClient.get('/validaToken')
+    //console.log(resultado.data.resultado);
+   return {
+     props: {}
+   }
 
-  } catch (error) {
-    if (error.response && error.response.status === 400) {
-      return {
-        redirect: {
-          destination: '/',
-          permanent: false,
-        }
-      };
-    } else {
-      // Handle other errors here if needed
-      throw error; // Re-throw the error to be caught by Next.js error handling
-    }
-  }
-}
+   } catch (error) {
+     if (error.response && error.response.status === 400) {
+       return {
+         redirect: {
+           destination: '/',
+           permanent: false,
+         }
+       };
+     } else {
+       // Handle other errors here if needed
+       throw error; // Re-throw the error to be caught by Next.js error handling
+     }
+   }
+ }
