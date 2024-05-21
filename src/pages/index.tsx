@@ -8,7 +8,7 @@ export default function Home() {
   const { register, handleSubmit } = useForm();
   const { signIn } = useContext(AuthContext)
 
-  async function handleSignIn(data) {
+  async function handleSignIn(data) { // criar mensagem para usuario
     await signIn(data);
   }
 
@@ -42,7 +42,7 @@ export default function Home() {
                 autoComplete="email"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="email"
+                placeholder="Email"
               />
             </div>
             <div>

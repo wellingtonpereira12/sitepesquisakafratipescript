@@ -15,3 +15,13 @@ export async function signInRequest (data: signInRequestData){
         }
     }
 }
+
+export async function recoverUserInformation() {
+    return {
+      user: {
+        name: 'Wellington Pereira',
+        email: 'lleco12@gmail.com',
+        avatar_url: 'https://github.com/wellingtonpereira12.png'
+      }
+    }
+  }

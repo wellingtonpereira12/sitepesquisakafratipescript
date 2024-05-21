@@ -1,6 +1,6 @@
-import { signInRequest } from "../services/auth";
-import { setCookie } from 'nookies'
-import { useState, createContext} from "react";
+import { recoverUserInformation, signInRequest } from "../services/auth";
+import { setCookie, parseCookies } from 'nookies' // parseCookies devolve todos os cookies
+import { useState, createContext, useEffect} from "react";
 import Router from "next/router";
 
 
@@ -27,6 +27,16 @@ export function AuthProvider({ children }) {
     const [user, setUser] = useState<User | null>(null);
 
     const isAuthenticated = !!user;
+
+    useEffect(() => {
+        const { 'kafra.token': token } = parseCookies()
+    
+        if (token) {
+          recoverUserInformation().then(response => { //essa fução para node
+            setUser(response.user)
+          })
+        }
+      }, [])
 
     async function signIn({ email, password}: SignInData) { // essa função tenho que jogar para o node processar
         const { token, user } = await signInRequest({
