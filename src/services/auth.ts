@@ -17,15 +17,12 @@ export async function signInRequest (data: signInRequestData){
 
  export async function recoverUserInformation() {
    try {
-    console.log("recoverUserInformation")
     const response = await api.get('/validaToken');
     const user = response.data.resultado;
-    console.log(user);
    return {         
      user
    };
   } catch (error) {
-    console.log("error")
       return {
         redirect: {
           destination: '/',
