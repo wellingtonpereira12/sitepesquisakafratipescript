@@ -8,8 +8,8 @@ import { parseCookies } from 'nookies'
 import { GetServerSideProps } from 'next'
 import { getAPIClient } from '../services/axios'
 
-const navigation = ['Dashboard', 'Team', 'Projects', 'Calendar', 'Reports']
-const profile = ['Your Profile', 'Settings']
+const navigation = ['Home', 'Procura']
+const profile = ['Seu perfil', 'Configuração']
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -117,7 +117,7 @@ export default function Dashboard() {
                                   href="#"
                                   className='block px-4 py-2 text-sm text-gray-700'
                                 >
-                                  Sign out
+                                  Sair
                                 </a>
                               </Menu.Item>
                             </Menu.Items>
@@ -194,7 +194,7 @@ export default function Dashboard() {
                     href="#"
                     className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
                   >
-                    Sign out
+                    Sair
                   </a>
                 </div>
               </div>
