@@ -4,9 +4,11 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import { AuthContext } from '../contexts/AuthContext'
 import { api } from '../services/api'
-import { parseCookies } from 'nookies'
+import { destroyCookie, parseCookies } from 'nookies'
 import { GetServerSideProps } from 'next'
 import { getAPIClient } from '../services/axios'
+import { useRouter } from 'next/router'; // Importe useRouter corretamente
+
 
 const navigation = ['Home', 'Procura']
 const profile = ['Seu perfil', 'Configuração']
@@ -20,6 +22,16 @@ export default function Dashboard() {
     // useEffect(() => {
     //   api.get('/validaToken');
     // }, [])
+
+  const router = useRouter();   
+
+  const handleLogout = () => {
+    // Remova o token de autenticação dos cookies
+    console.log("useRouter")
+    destroyCookie(null, 'kafra.token');
+    // Redirecione o usuário de volta para a página inicial
+    router.push('/');
+  };
   return (
     <div>
       <Head>
@@ -65,7 +77,7 @@ export default function Dashboard() {
                 <div className="hidden md:block">
                   <div className="ml-4 flex items-center md:ml-6">
                     <button className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                      <span className="sr-only">View notifications</span>
+                      <span className="sr-only">Notificação</span>
                       <BellIcon className="h-6 w-6" aria-hidden="true" />
                     </button>
 
@@ -75,7 +87,7 @@ export default function Dashboard() {
                         <>
                           <div>
                             <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                              <span className="sr-only">Open user menu</span>
+                              <span className="sr-only">Menu</span>
                               <img
                                 className="h-8 w-8 rounded-full"
                                 src={user?.avatar_url}
@@ -172,11 +184,15 @@ export default function Dashboard() {
                     />
                   </div>
                   <div className="ml-3">
-                    <div className="text-base font-medium leading-none text-white">Diego Fernandes</div>
-                    <div className="text-sm font-medium leading-none text-gray-400">diego@rocketseat.com.br</div>
+                  <div className="text-base font-medium leading-none text-white">
+                    <a href="#">{user?.name}</a>
+                  </div>
+                    <div className="text-sm font-medium leading-none text-gray-400">
+                    <a href="#">{user?.email}</a>
+                  </div>
                   </div>
                   <button className="ml-auto bg-gray-800 flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                    <span className="sr-only">View notifications</span>
+                    <span className="sr-only">notificação</span>
                     <BellIcon className="h-6 w-6" aria-hidden="true" />
                   </button>
                 </div>
@@ -191,6 +207,7 @@ export default function Dashboard() {
                     </a>
                   ))}
                   <a
+                    onClick={handleLogout} 
                     href="#"
                     className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
                   >
