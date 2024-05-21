@@ -126,8 +126,9 @@ export default function Dashboard() {
                               ))}
                               <Menu.Item>
                                 <a
+                                  onClick={handleLogout} 
                                   href="#"
-                                  className='block px-4 py-2 text-sm text-gray-700'
+                                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
                                 >
                                   Sair
                                 </a>
