@@ -1,8 +1,12 @@
-import { Fragment, useContext } from 'react'
+import { Fragment, useContext, useEffect } from 'react'
 import Head from 'next/head'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import { AuthContext } from '../contexts/AuthContext'
+import { api } from '../services/api'
+import { parseCookies } from 'nookies'
+import { GetServerSideProps } from 'next'
+import { getAPIClient } from '../services/axios'
 
 const navigation = ['Dashboard', 'Team', 'Projects', 'Calendar', 'Reports']
 const profile = ['Your Profile', 'Settings']
@@ -13,7 +17,11 @@ function classNames(...classes) {
 
 export default function Dashboard() {
   const { user } = useContext(AuthContext);
-  
+
+  useEffect(() => {
+    //api.get('/users');
+  }, [])
+ 
   return (
     <div>
       <Head>
@@ -213,4 +221,24 @@ export default function Dashboard() {
       </main>
     </div>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const apiClient = getAPIClient(ctx);
+  const { ['kafra.token']: token } = parseCookies(ctx)
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      }
+    }
+  }
+
+  await apiClient.get('/users')
+
+  return {
+    props: {}
+  }
 }

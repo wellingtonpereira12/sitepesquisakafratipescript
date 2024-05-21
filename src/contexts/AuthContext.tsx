@@ -2,6 +2,7 @@ import { recoverUserInformation, signInRequest } from "../services/auth";
 import { setCookie, parseCookies } from 'nookies' // parseCookies devolve todos os cookies
 import { useState, createContext, useEffect} from "react";
 import Router from "next/router";
+import { api } from "../services/api";
 
 
 type User = {
@@ -47,6 +48,8 @@ export function AuthProvider({ children }) {
         setCookie(undefined, 'kafra.token', token, {
             maxAge: 60 * 60 * 1, // 1 hora  
         });
+
+        api.defaults.headers['Authorization'] = `Bearer ${token}`;
 
         setUser(user);
         Router.push('/dashboard');
