@@ -40,6 +40,42 @@ export default function Dashboard() {
     setTasks(tasks.filter(task => task.id !== taskId));
   };
 
+  // Add handleAdd function for form submission
+  const handleAdd = async (event) => {
+    event.preventDefault();
+    const itemName = event.target.itemName.value;
+    const maxValue = event.target.maxValue.value;
+    const currency = event.target.currency.value;
+
+    const data = { itemName, maxValue, currency };
+
+    console.log(data)
+
+    try {
+        const { ['kafra.token']: token } = parseCookies();
+        const response = await fetch('https://teste-api-5421.onrender.com/gravaProcura', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const responseData = await response.json();
+        console.log('Success:', responseData);
+
+        setTasks([...tasks, { id: responseData.id, text: `${itemName} ${currency}${maxValue}` }]);
+    } catch (error) {
+        console.error('Error:', error);
+    }
+};
+
+
   return (
     <div>
       <Head>
@@ -64,7 +100,6 @@ export default function Dashboard() {
                       {navigation.map((item, itemIdx) =>
                         itemIdx === 0 ? (
                           <Fragment key={item}>
-                            {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
                             <a href="/dashboard" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                               {item}
                             </a>
@@ -89,7 +124,6 @@ export default function Dashboard() {
                       <BellIcon className="h-6 w-6" aria-hidden="true" />
                     </button>
 
-                    {/* Profile dropdown */}
                     <Menu as="div" className="ml-3 relative">
                       {({ open }) => (
                         <>
@@ -149,7 +183,6 @@ export default function Dashboard() {
                   </div>
                 </div>
                 <div className="-mr-2 flex md:hidden">
-                  {/* Mobile menu button */}
                   <Disclosure.Button className="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                     <span className="sr-only">Open main menu</span>
                     {open ? (
@@ -167,7 +200,6 @@ export default function Dashboard() {
                 {navigation.map((item, itemIdx) =>
                   itemIdx === 0 ? (
                     <Fragment key={item}>
-                      {/* text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium*/}
                       <a href="/dashboard" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
                         {item}
                       </a>
@@ -239,26 +271,26 @@ export default function Dashboard() {
         {/* começo meio da tela */}
         {/* cadastro começo */}
         <div className="relative flex justify-center py-10">
-            <form className="bg-white">
+            <form className="bg-white" onSubmit={handleAdd}>
                 <p className="text-sm font-normal text-gray-600 mb-1">Assim que você se cadastrar em nosso sistema, ele começará a buscar por você. Quando encontrar algo relevante, você receberá um alerta na página inicial.</p>
                 <p className="text-sm font-normal text-gray-600 mb-3">Obs: O item procurado é o mesmo que é fornecido ao realizar uma consulta no site do Kafraverse.</p>
                 <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
                         <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
                     </svg>
-                    <input className="pl-2 outline-none border-none" type="text" name="" id="" placeholder="Nome do item Procurado" />
+                    <input className="pl-2 outline-none border-none" type="text" name="itemName" placeholder="Nome do item Procurado" />
                 </div>
                     <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
                         </svg>
-                        <input className="pl-2 outline-none border-none" type="text" name="" id="" placeholder="Valor Máximo" /> 
+                        <input className="pl-2 outline-none border-none" type="text" name="maxValue" placeholder="Valor Máximo" /> 
                     </div>
-                    <select className="flex w-full items-center border-2 py-2 px-3 rounded-2xl mb-4">
-                            <option className="pl-2 outline-none border-none" value="zeny">Zeny</option>
-                            <option className="pl-2 outline-none border-none" value="cash">Cash</option>
+                    <select name="currency" className="flex w-full items-center border-2 py-2 px-3 rounded-2xl mb-4">
+                        <option className="pl-2 outline-none border-none" value="zeny">Zeny</option>
+                        <option className="pl-2 outline-none border-none" value="cash">Cash</option>
                     </select>
-                    <button type="submit" className="block w-full bg-indigo-600 mt-4 py-2 rounded-2xl text-white font-semibold mb-2">Adicionar</button>
+                    <button type="submit" className="block w-full bg-indigo-600 mt-4 py-2 rounded-2xl text-white font-semibold mb-2" >Adicionar</button>
             </form>
         </div>
          {/* cadastro fim */}
