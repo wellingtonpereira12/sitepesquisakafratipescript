@@ -33,8 +33,7 @@ export default function Dashboard() {
           const newTasks = [];
           for (let i = 0; i < user.obgProcura.length; i++) {
             const item = await user.obgProcura[i];
-            console.log(item);
-            newTasks.push({ text: `Item procurado: ${item.nome} ${item.moeda}: ${item.valor}` });
+            newTasks.push({ text: `Item procurado: ${item.nome} | ${item.moeda}: ${item.valor}` });
           }
           setTasks(prevTasks => [...prevTasks, ...newTasks]);
         } else {
@@ -48,21 +47,23 @@ export default function Dashboard() {
     fetchData();
   }, [user]);
   
-  const handleDelete = async (nome) => {
+  const handleDelete = async (text) => {
     try {
-      const { ['kafra.token']: token } = parseCookies()
-      await fetch(`https://teste-api-5421.onrender.com/deleteProcura/${nome}`, {
+      console.log(text);
+      const { ['kafra.token']: token } = parseCookies();
+      await fetch(`http://localhost:3002/deleteProcura?text=${encodeURIComponent(text)}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
-        },
+        }
       });
 
-      setTasks(tasks.filter(task => task.nome !== nome));
+      setTasks(tasks.filter(task => task.text !== text));
     } catch (error) {
       console.error('Error:', error);
     }
-  };
+};
+
 
   // Add handleAdd function for form submission
   const handleAdd = async (event) => {
@@ -85,15 +86,11 @@ export default function Dashboard() {
             },
             body: JSON.stringify(data),
         });
-
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-
         const responseData = await response.json();
-        console.log('Success:', responseData);
-
-        setTasks([...tasks, {text: `Item procurado: ${itemName} ${currency}: ${maxValue}` }]);
+        router.reload()
     } catch (error) {
         console.error('Error:', error);
     }
@@ -328,7 +325,7 @@ export default function Dashboard() {
                   task && (
                       <li key={task.id} className="flex items-center justify-between p-4 bg-white shadow rounded-lg">
                           <span>{task.text}</span>
-                          <button onClick={() => handleDelete(task.id)}>Delete</button>
+                          <button onClick={() => handleDelete(task.text)}>Delete</button>
                       </li>
                   )
               ))}
