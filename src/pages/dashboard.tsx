@@ -1,4 +1,4 @@
-import { Fragment, useContext, useEffect } from 'react'
+import { Fragment, useContext, useEffect, useState } from 'react'
 import Head from 'next/head'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
@@ -32,18 +32,21 @@ export default function Dashboard() {
     router.push('/');
   };
 
-  const data = [
-    { title: "Item econtrado: variavel ", description: "dados a mais", year: "21/05/2007 14:44" },
-    { title: "Item econtrado: variavel ", description: "dados a mais", year: "21/05/2007 14:00" },
-    { title: "Item econtrado: variavel ", description: "dados a mais", year: "21/05/2007 13:35" },
-    { title: "Item econtrado: variavel ", description: "dados a mais", year: "21/05/2007 12:00" },
-    { title: "Item econtrado: variavel ", description: "dados a mais", year: "21/05/2007 10:44" },
-    { title: "Item econtrado: variavel ", description: "dados a mais", year: "21/05/2007 08:00" },
-    { title: "Item econtrado: variavel ", description: "dados a mais", year: "21/05/2007 01:44" },
-    { title: "Item econtrado: variavel ", description: "dados a mais", year: "21/05/2007 00:30" },
-    { title: "Item econtrado: variavel ", description: "dados a mais", year: "20/05/2007 14:44" },
-    // Outros objetos JSON aqui
-  ];
+  const [tasks, setTasks] = useState([]); 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (user && user.objAlerta) {
+          setTasks(user.objAlerta);
+        } else {
+          console.error('User or user.objAlerta is null.');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+    fetchData();
+  }, [user]);
   
   return (
     <div>
@@ -243,18 +246,20 @@ export default function Dashboard() {
         {/* começo notificação */}
           <div className="flex items-top justify-center bg-white px-6 md:px-60 h-screen">
             <div className="space-y-6 border-l-2 border-dashed">
-              {data.map((item, index) => (
-                <div key={index} className="relative w-full">
+            {Array.isArray(tasks) && tasks.map((task) => (
+              task && (
+                <div key={task.id} className="relative w-full">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="absolute -top-0.5 z-10 -ml-3.5 h-7 w-7 rounded-full text-blue-500">
                     <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clipRule="evenodd" />
                   </svg>
                   <div className="ml-6">
-                    <h4 className="font-bold text-blue-500">{item.title}</h4>
-                    <p className="mt-2 max-w-screen-sm text-sm text-gray-500">{item.description}</p>
-                    <span className="mt-1 block text-sm font-semibold text-blue-500">{item.year}</span>
+                    <h4 className="font-bold text-blue-500">{`${tasks.nome}`}</h4>
+                    <p className="mt-2 max-w-screen-sm text-sm text-gray-500">{'Foi encontrado o item a venda que você esta procurando: '}</p>
+                    <span className="mt-1 block text-sm font-semibold text-blue-500">{task.year}</span>
                   </div>
                 </div>
-              ))}
+              )  
+            ))}
             </div>
           </div>
         {/* fim notificação */}

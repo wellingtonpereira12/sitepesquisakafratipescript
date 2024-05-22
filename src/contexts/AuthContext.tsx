@@ -9,7 +9,8 @@ type User = {
     name: string;
     email: string;
     avatar_url: string;
-    obgProcura
+    objProcura;
+    objAlerta;
 }
 
 type SignInData = {

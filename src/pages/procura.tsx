@@ -29,15 +29,15 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (user && user.obgProcura) {
+        if (user && user.objProcura) {
           const newTasks = [];
-          for (let i = 0; i < user.obgProcura.length; i++) {
-            const item = await user.obgProcura[i];
+          for (let i = 0; i < user.objProcura.length; i++) {
+            const item = await user.objProcura[i];
             newTasks.push({ text: `Item procurado: ${item.nome} | ${item.moeda}: ${item.valor}` });
           }
           setTasks(prevTasks => [...prevTasks, ...newTasks]);
         } else {
-          console.error('User or user.obgProcura is null.');
+          console.error('User or user.objProcura is null.');
         }
       } catch (error) {
         console.error('Error:', error);
