@@ -21,11 +21,6 @@ function classNames(...classes) {
 
 export default function Dashboard() {
   const { user } = useContext(AuthContext);
-    // useEffect(() => {
-    //   api.get('/validaToken');
-    // }, [])
-    let clickMenu;
-
   const router = useRouter();   
     // This will give you the current page path
 

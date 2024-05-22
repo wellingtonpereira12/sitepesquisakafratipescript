@@ -25,19 +25,43 @@ export default function Dashboard() {
     router.push('/');
   };
 
-  const [tasks, setTasks] = useState([]);
-
+  const [tasks, setTasks] = useState([]); 
   useEffect(() => {
-    // Mock loading tasks; replace with actual API call if available
-    setTasks([
-      { id: 1, text: "drops zeny5000" },
-      { id: 2, text: "collect coins" },
-      { id: 3, text: "defeat the dragon" }
-    ]);
-  }, []);
+    const fetchData = async () => {
+      try {
+        if (user && user.obgProcura) {
+          const newTasks = [];
+          for (let i = 0; i < user.obgProcura.length; i++) {
+            const item = await user.obgProcura[i];
+            console.log(item);
+            newTasks.push({ text: `Item procurado: ${item.nome} ${item.moeda}: ${item.valor}` });
+          }
+          setTasks(prevTasks => [...prevTasks, ...newTasks]);
+        } else {
+          console.error('User or user.obgProcura is null.');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+  
+    fetchData();
+  }, [user]);
+  
+  const handleDelete = async (nome) => {
+    try {
+      const { ['kafra.token']: token } = parseCookies()
+      await fetch(`https://teste-api-5421.onrender.com/deleteProcura/${nome}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+      });
 
-  const handleDelete = (taskId) => {
-    setTasks(tasks.filter(task => task.id !== taskId));
+      setTasks(tasks.filter(task => task.nome !== nome));
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   // Add handleAdd function for form submission
@@ -69,12 +93,12 @@ export default function Dashboard() {
         const responseData = await response.json();
         console.log('Success:', responseData);
 
-        setTasks([...tasks, { id: responseData.id, text: `${itemName} ${currency}${maxValue}` }]);
+        setTasks([...tasks, {text: `Item procurado: ${itemName} ${currency}: ${maxValue}` }]);
     } catch (error) {
         console.error('Error:', error);
     }
-};
 
+};
 
   return (
     <div>
@@ -300,18 +324,15 @@ export default function Dashboard() {
             <div className="border-4 border-dashed border-gray-200 rounded-lg h-auto">
               <h1 className="text-3xl font-bold leading-tight text-gray-900 mb-4">Lista Procurada</h1>
               <ul className="space-y-4">
-                {tasks.map((task) => (
-                  <li key={task.id} className="flex items-center justify-between p-4 bg-white shadow rounded-lg">
-                    <span>{task.text}</span>
-                    <button
-                      onClick={() => handleDelete(task.id)}
-                      className="text-red-500 hover:text-red-700"
-                    >
-                      Delete
-                    </button>
-                  </li>
-                ))}
-              </ul>
+              {Array.isArray(tasks) && tasks.map((task) => (
+                  task && (
+                      <li key={task.id} className="flex items-center justify-between p-4 bg-white shadow rounded-lg">
+                          <span>{task.text}</span>
+                          <button onClick={() => handleDelete(task.id)}>Delete</button>
+                      </li>
+                  )
+              ))}
+            </ul>
             </div>
           </div>
         </div>
