@@ -51,7 +51,7 @@ export default function Dashboard() {
     try {
       console.log(text);
       const { ['kafra.token']: token } = parseCookies();
-      await fetch(`http://localhost:3002/deleteProcura?text=${encodeURIComponent(text)}`, {
+      await fetch(`https://teste-api-5421.onrender.com/deleteProcura?text=${encodeURIComponent(text)}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
