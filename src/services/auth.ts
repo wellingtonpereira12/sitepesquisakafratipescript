@@ -9,7 +9,7 @@ type signInRequestData = {
 } 
 
 export async function signInRequest (data: signInRequestData){
-    const response = await axios.post('http://localhost:3002/loginkafra', data);
+    const response = await axios.post('https://teste-api-5421.onrender.com/loginkafra', data);
     const token = response.data.resultado.token;
     const user = response.data.resultado.user;
     return { token, user };
