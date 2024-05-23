@@ -3,7 +3,6 @@ import Head from 'next/head'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import { AuthContext } from '../contexts/AuthContext'
-import { api } from '../services/api'
 import { destroyCookie, parseCookies } from 'nookies'
 import { GetServerSideProps } from 'next'
 import { getAPIClient } from '../services/axios'
@@ -63,8 +62,6 @@ export default function Dashboard() {
       console.error('Error:', error);
     }
 };
-
-
   // Add handleAdd function for form submission
   const handleAdd = async (event) => {
     event.preventDefault();
@@ -340,7 +337,7 @@ export default function Dashboard() {
       <div className="flex items-end justify-end fixed bottom-0 right-0 mb-4 mr-4 z-10">
         <div>
           <a
-            title="Buy me a beer"
+            title="Suporte"
             href="https://api.whatsapp.com/send/?phone=47984862476&text&type=phone_number&app_absent=0"
             target="_blank"
             className="block w-16 h-16 rounded-full transition-all shadow hover:shadow-lg transform hover:scale-110 hover:rotate-12"

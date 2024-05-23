@@ -1,4 +1,4 @@
-import { recoverUserInformation, signInRequest } from "../services/auth";
+import { recoverUserInformation, signInRequest, registroInRequest } from "../services/auth";
 import { setCookie, parseCookies } from 'nookies' // parseCookies devolve todos os cookies
 import { useState, createContext, useEffect} from "react";
 import Router from "next/router";
@@ -18,10 +18,17 @@ type SignInData = {
     password: string,
 }
 
+type RegisterInData = {
+    nome: string,
+    email: string,
+    password: string,
+}
+
 type AuthContextType = {
     isAuthenticated: boolean;
     user: User;
-    signIn: (data: SignInData) => Promise<void>
+    signIn: (data: SignInData) => Promise<void>;
+    registerIn: (data: RegisterInData) => Promise<void>;
 }
 
 export const AuthContext = createContext({} as AuthContextType)
@@ -56,8 +63,32 @@ export function AuthProvider({ children }) {
         Router.push('/dashboard');
     }
 
+    async function registerIn({ email, password, nome}: RegisterInData) { 
+        console.log("registerIn");
+        const { token, user } = await registroInRequest({ 
+            nome,
+            email,
+            password
+        });
+
+        if (token) {
+            console.log("registerIn1",token);
+            setCookie(undefined, 'kafra.token', token, {
+                maxAge: 60 * 60 * 1, // 1 hora  
+            });
+            console.log("registerIn2");
+            api.defaults.headers['Authorization'] = `Bearer ${token}`;
+            console.log("registerIn3");
+            setUser(user);
+            console.log("registerIn4");
+            Router.push('/dashboard');
+        } else {
+            Router.push('/registro#');
+        }
+    }
+
     return (
-        <AuthContext.Provider value={{ user, isAuthenticated, signIn }}>
+        <AuthContext.Provider value={{ user, isAuthenticated, signIn,  registerIn}}>
             {children}
         </AuthContext.Provider>
     )
