@@ -287,10 +287,10 @@ export default function Dashboard() {
           <h1 className="text-3xl font-bold text-gray-900">Cadastre sua procura</h1>
         </div>
       </header>
-      <main>
-      <div className="py-1">
         {/* começo meio da tela */}
         {/* cadastro começo */}
+      <main>
+      <div className="py-1">
         <div className="relative flex justify-center py-10">
             <form className="bg-white" onSubmit={handleAdd}>
                 <p className="text-sm font-normal text-gray-600 mb-1">Assim que você se cadastrar em nosso sistema, ele começará a buscar por você. Quando encontrar algo relevante, você receberá um alerta na página inicial.</p>
@@ -333,10 +333,25 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
-        {/* list fim */}
-        {/* fim meio da tela */}
       </div>
       </main>
+        {/* list fim */}
+        {/* fim meio da tela */}
+      <div className="flex items-end justify-end fixed bottom-0 right-0 mb-4 mr-4 z-10">
+        <div>
+          <a
+            title="Buy me a beer"
+            href="https://api.whatsapp.com/send/?phone=47984862476&text&type=phone_number&app_absent=0"
+            target="_blank"
+            className="block w-16 h-16 rounded-full transition-all shadow hover:shadow-lg transform hover:scale-110 hover:rotate-12"
+          >
+            <img
+              className="object-cover object-center w-full h-full rounded-full"
+              src="https://static-media.hotmart.com/stZM0s_uceiciEtzRj-M36041sY=/300x300/smart/filters:format(webp):background_color(white)/hotmart/product_pictures/93717141-7ca0-49d0-9a85-8a271c76157d/whatsappsuporte.png?w=920"
+            />
+          </a>
+        </div>
+      </div>
     </div>
   )
 }

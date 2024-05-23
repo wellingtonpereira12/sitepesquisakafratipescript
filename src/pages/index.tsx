@@ -2,14 +2,20 @@ import Head from 'next/head'
 import { LockClosedIcon } from '@heroicons/react/solid'
 import { useForm } from 'react-hook-form'
 import { useContext } from 'react';
-import { AuthContext  } from '../contexts/AuthContext'
+import { AuthContext } from '../contexts/AuthContext'
+import { useRouter } from 'next/router'
 
 export default function Home() {
   const { register, handleSubmit } = useForm();
-  const { signIn } = useContext(AuthContext)
+  const { signIn } = useContext(AuthContext);
+  const router = useRouter();
 
   async function handleSignIn(data) { 
-    await signIn(data)
+    await signIn(data);
+  }
+
+  function handleRegister() {
+    router.push('/registro');
   }
 
   return (
@@ -32,7 +38,7 @@ export default function Home() {
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
               <label htmlFor="email-address" className="sr-only">
-                 email
+                email
               </label>
               <input
                 {...register('email')}
@@ -91,6 +97,15 @@ export default function Home() {
                 <LockClosedIcon className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
               </span>
               Logar
+            </button>
+          </div>
+          <div>
+            <button
+              type="button"
+              onClick={handleRegister}
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Registre-se
             </button>
           </div>
         </form>
