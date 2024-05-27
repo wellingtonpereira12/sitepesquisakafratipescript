@@ -349,6 +349,122 @@ export default function Dashboard() {
           </a>
         </div>
       </div>
+      <div className="bg-white py-24 sm:py-32">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-4xl text-center">
+            <h2 className="text-base font-semibold leading-7 text-teal-600">Preços</h2>
+            <p className="mt-2 text-4xl font-bold tracking-tight text-blue-500 sm:text-5xl">Libere mais slots para colocar procuras</p>
+          </div>
+          <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-cyan-600">Escolhe entre nossos três pacotes</p>
+          <div className="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+            <div className="rounded-3xl p-8 ring-1 xl:p-10 bg-gray-90 ring-gray-900">
+              <h3 id="tier-freelancer" className="text-lg font-semibold leading-8 text-orange-600">Standar</h3>
+              <p className="mt-4 text-sm leading-6 text-black-600">Plano com acessos a todas as nossas fictures por 1 mês.</p>
+              <p className="mt-6 flex items-baseline gap-x-1">
+                <span className="text-4xl font-bold tracking-tight text-pink-900">R$ 5,00</span>
+                <span className="text-sm font-semibold leading-6 text-teal-600">/1 mês</span>
+              </p>
+              <a href="#" aria-describedby="tier-startup" className="mt-6 block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-green-600 text-white shadow-sm hover:bg-green-800 focus-visible:outline-red-600">Compre Com Mercado Pago</a>
+              <ul role="list" className="mt-8 space-y-3 text-sm leading-6 xl:mt-10 text-black-400">
+                <li className="flex gap-x-3">
+                  <svg className="h-6 w-5 flex-none text-green-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                  </svg>
+                  +5 slots de procura
+                </li>
+                <li className="flex gap-x-3">
+                  <svg className="h-6 w-5 flex-none text-green-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                  </svg>
+                  Verifica as cinco primeira páginas
+                </li>
+                <li className="flex gap-x-3">
+                  <svg className="h-6 w-5 flex-none text-green-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                  </svg>
+                  Notificação no navegador e alarme 
+                </li>
+                <li className="flex gap-x-3">
+                  <svg className="h-6 w-5 flex-none text-green-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                  </svg>
+                  Tenha prioridade nas procuras acima do plano free
+                </li>
+              </ul>
+            </div>
+            <div className="rounded-3xl p-8 ring-1 xl:p-10 bg-gray-200 ring-gray-900">
+              <h3 id="tier-startup" className="text-lg font-semibold leading-8 text-gray-900">Prime</h3>
+              <p className="mt-4 text-sm leading-6 text-cyan-600">Plano com mais slots com acesso a todas as nossas fictures por 1 mês.</p>
+              <p className="mt-6 flex items-baseline gap-x-1">
+                <span className="text-4xl font-bold tracking-tight text-pink-900">R$ 15,00</span>
+                <span className="text-sm font-semibold leading-6 text-teal-600">/1 mês</span>
+              </p>
+              <a href="#" aria-describedby="tier-startup" className="mt-6 block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-green-600 text-white shadow-sm hover:bg-green-800 focus-visible:outline-red-600">Compre Com Mercado Pago</a>
+              <ul role="list" className="mt-8 space-y-3 text-sm leading-6 xl:mt-10 text-black-600">
+                <li className="flex gap-x-3">
+                  <svg className="h-6 w-5 flex-none text-green-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                  </svg>
+                  +25 slots por 1 mês
+                </li>
+                <li className="flex gap-x-3">
+                  <svg className="h-6 w-5 flex-none text-green-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                  </svg>
+                  Verifica as dez primeiras páginas
+                </li>
+                <li className="flex gap-x-3">
+                  <svg className="h-6 w-5 flex-none text-green-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                  </svg>
+                  Notificação no navegador e alarme
+                </li>
+                <li className="flex gap-x-3">
+                  <svg className="h-6 w-5 flex-none text-green-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                  </svg>
+                  Tenha prioridade nas procuras acima do plano Standar e Free
+                </li>
+              </ul>
+            </div>
+            <div className="rounded-3xl p-8 ring-1 xl:p-10 bg-gray-800 ring-gray-900">
+              <h3 id="tier-enterprise" className="text-lg font-semibold leading-8 text-white">Premium</h3>
+              <p className="mt-4 text-sm leading-6 text-gray-300">Plano com mais slots com acesso a todas as nossas fictures por 1 mês.</p>
+              <p className="mt-6 flex items-baseline gap-x-1">
+                <span className="text-4xl font-bold tracking-tight text-white">R$ 30,00</span>
+                <span className="text-sm font-semibold leading-6 text-white">/1 mês</span>
+              </p>
+              <a href="#" aria-describedby="tier-startup" className="mt-6 block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-green-600 text-white shadow-sm hover:bg-green-800 focus-visible:outline-red-600">Compre Com Mercado Pago</a>
+              <ul role="list" className="mt-8 space-y-3 text-sm leading-6 xl:mt-10 text-gray-300">
+                <li className="flex gap-x-3">
+                  <svg className="h-6 w-5 flex-none text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                  </svg>
+                  Slots ilimitado por 1 mês
+                </li>
+                <li className="flex gap-x-3">
+                  <svg className="h-6 w-5 flex-none text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                  </svg>
+                  Verifica todas as páginas
+                </li>
+                <li className="flex gap-x-3">
+                  <svg className="h-6 w-5 flex-none text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                  </svg>
+                  Notificação no navegador e alarme
+                </li>
+                <li className="flex gap-x-3">
+                  <svg className="h-6 w-5 flex-none text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                  </svg>
+                  Tenha prioridade nas procuras acima de todos os outros pacotes
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
