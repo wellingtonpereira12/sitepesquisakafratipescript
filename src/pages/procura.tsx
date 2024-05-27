@@ -24,6 +24,23 @@ export default function Dashboard() {
     router.push('/');
   };
 
+  const carregaML = async (pacote) => {
+    try {
+      console.log(pacote);
+      const { ['kafra.token']: token } = parseCookies();
+      const response = await fetch(`http://localhost:3002/mercadoPagoCriaPagamento?text=${encodeURIComponent(pacote)}`, {
+        method: 'get',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      const link = await response.json();
+      window.open(`${link.resultado}`);      
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
   const [tasks, setTasks] = useState([]); 
   useEffect(() => {
     const fetchData = async () => {
@@ -364,7 +381,7 @@ export default function Dashboard() {
                 <span className="text-4xl font-bold tracking-tight text-pink-900">R$ 5,00</span>
                 <span className="text-sm font-semibold leading-6 text-teal-600">/1 mês</span>
               </p>
-              <a href="#" aria-describedby="tier-startup" className="mt-6 block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-green-600 text-white shadow-sm hover:bg-green-800 focus-visible:outline-red-600">Compre Com Mercado Pago</a>
+              <a onClick={() => carregaML(0)} href="#" aria-describedby="tier-startup" className="mt-6 block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-green-600 text-white shadow-sm hover:bg-green-800 focus-visible:outline-red-600">Compre Com Mercado Pago</a>
               <ul role="list" className="mt-8 space-y-3 text-sm leading-6 xl:mt-10 text-black-400">
                 <li className="flex gap-x-3">
                   <svg className="h-6 w-5 flex-none text-green-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -399,7 +416,7 @@ export default function Dashboard() {
                 <span className="text-4xl font-bold tracking-tight text-pink-900">R$ 15,00</span>
                 <span className="text-sm font-semibold leading-6 text-teal-600">/1 mês</span>
               </p>
-              <a href="#" aria-describedby="tier-startup" className="mt-6 block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-green-600 text-white shadow-sm hover:bg-green-800 focus-visible:outline-red-600">Compre Com Mercado Pago</a>
+              <a onClick={() => carregaML(1)} href="#" aria-describedby="tier-startup" className="mt-6 block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-green-600 text-white shadow-sm hover:bg-green-800 focus-visible:outline-red-600">Compre Com Mercado Pago</a>
               <ul role="list" className="mt-8 space-y-3 text-sm leading-6 xl:mt-10 text-black-600">
                 <li className="flex gap-x-3">
                   <svg className="h-6 w-5 flex-none text-green-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -434,7 +451,9 @@ export default function Dashboard() {
                 <span className="text-4xl font-bold tracking-tight text-white">R$ 30,00</span>
                 <span className="text-sm font-semibold leading-6 text-white">/1 mês</span>
               </p>
-              <a href="#" aria-describedby="tier-startup" className="mt-6 block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-green-600 text-white shadow-sm hover:bg-green-800 focus-visible:outline-red-600">Compre Com Mercado Pago</a>
+              <a onClick={() => carregaML(2)} href="#" aria-describedby="tier-startup" className="mt-6 block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-green-600 text-white shadow-sm hover:bg-green-800 focus-visible:outline-red-600">
+                Compre Com Mercado Pago
+              </a>
               <ul role="list" className="mt-8 space-y-3 text-sm leading-6 xl:mt-10 text-gray-300">
                 <li className="flex gap-x-3">
                   <svg className="h-6 w-5 flex-none text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
