@@ -28,7 +28,7 @@ export default function Dashboard() {
     try {
       console.log(pacote);
       const { ['kafra.token']: token } = parseCookies();
-      const response = await fetch(process.env.LINKAPI+`/mercadoPagoCriaPagamento?text=${encodeURIComponent(pacote)}`, {
+      const response = await fetch(`https://teste-api-5421.onrender.com/mercadoPagoCriaPagamento?text=${encodeURIComponent(pacote)}`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -45,7 +45,7 @@ export default function Dashboard() {
     try {
       console.log(text);
       const { ['kafra.token']: token } = parseCookies();
-      await fetch(process.env.LINKAPI+`/deleteProcura?text=${encodeURIComponent(text)}`, {
+      await fetch(`https://teste-api-5421.onrender.com/deleteProcura?text=${encodeURIComponent(text)}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -89,7 +89,7 @@ export default function Dashboard() {
       try {
         console.log(text);
         const { ['kafra.token']: token } = parseCookies();
-        await fetch(process.env.LINKAPI+`/deleteProcura?text=${encodeURIComponent(text)}`, {
+        await fetch(`https://teste-api-5421.onrender.com/deleteProcura?text=${encodeURIComponent(text)}`, {
           method: 'DELETE',
           headers: {
             'Authorization': `Bearer ${token}`
@@ -117,7 +117,7 @@ export default function Dashboard() {
 
     try {
         const { ['kafra.token']: token } = parseCookies();
-        const response = await fetch(process.env.LINKAPI+'/gravaProcura', {
+        const response = await fetch('https://teste-api-5421.onrender.com/gravaProcura', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

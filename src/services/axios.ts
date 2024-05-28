@@ -5,7 +5,7 @@ export function getAPIClient(ctx?: any) {
   const { 'kafra.token': token } = parseCookies(ctx)
 
   const api = axios.create({
-    baseURL: process.env.linkApi
+    baseURL: 'https://teste-api-5421.onrender.com/'
   })
 
   if (token) {
