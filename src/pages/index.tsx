@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext'
 import { useRouter } from 'next/router'
+require('dotenv').config()
 
 export default function Home() {
   const { register, handleSubmit } = useForm();
