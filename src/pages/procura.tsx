@@ -28,14 +28,31 @@ export default function Dashboard() {
     try {
       console.log(pacote);
       const { ['kafra.token']: token } = parseCookies();
-      const response = await fetch(`http://localhost:3002/mercadoPagoCriaPagamento?text=${encodeURIComponent(pacote)}`, {
-        method: 'get',
+      const response = await fetch(`https://teste-api-5421.onrender.com/mercadoPagoCriaPagamento?text=${encodeURIComponent(pacote)}`, {
+        method: 'post',
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
       const link = await response.json();
       window.open(`${link.resultado}`);      
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const handleDelete = async (text) => {
+    try {
+      console.log(text);
+      const { ['kafra.token']: token } = parseCookies();
+      await fetch(`https://teste-api-5421.onrender.com/deleteProcura?text=${encodeURIComponent(text)}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      setTasks(tasks.filter(task => task.text !== text));
     } catch (error) {
       console.error('Error:', error);
     }
@@ -63,22 +80,7 @@ export default function Dashboard() {
     fetchData();
   }, [user]);
   
-  const handleDelete = async (text) => {
-    try {
-      console.log(text);
-      const { ['kafra.token']: token } = parseCookies();
-      await fetch(`https://teste-api-5421.onrender.com/deleteProcura?text=${encodeURIComponent(text)}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
 
-      setTasks(tasks.filter(task => task.text !== text));
-    } catch (error) {
-      console.error('Error:', error);
-    }
-};
   // Add handleAdd function for form submission
   const handleAdd = async (event) => {
     event.preventDefault();
