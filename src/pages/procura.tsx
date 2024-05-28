@@ -51,8 +51,7 @@ export default function Dashboard() {
           'Authorization': `Bearer ${token}`
         }
       });
-
-      setTasks(tasks.filter(task => task.text !== text));
+      router.reload()
     } catch (error) {
       console.error('Error:', error);
     }
@@ -334,7 +333,7 @@ export default function Dashboard() {
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-80">
           <div className="px-4 py-6 sm:px-0">
             <div className="border-4 border-dashed border-gray-200 rounded-lg h-auto">
-              <h1 className="text-3xl font-bold leading-tight text-gray-900 mb-4">Lista Procurada: {`${user?.objPacote[0].idpacotes || '0'}/${user?.objPacote[0].qtdproc || '0'} usados`}</h1>
+              <h1 className="text-3xl font-bold leading-tight text-gray-900 mb-4">Lista Procurada: {`${user?.objPacote[0].totalusado || '0'}/${user?.objPacote[0].qtdproc || '0'} usados`}</h1>
               <ul className="space-y-4">
               {Array.isArray(tasks) && tasks.map((task) => (
                   task && (
