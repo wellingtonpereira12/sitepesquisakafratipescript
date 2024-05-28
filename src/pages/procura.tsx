@@ -1,12 +1,12 @@
-import { Fragment, useContext, useEffect, useState } from 'react'
-import Head from 'next/head'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
-import { AuthContext } from '../contexts/AuthContext'
-import { destroyCookie, parseCookies } from 'nookies'
-import { GetServerSideProps } from 'next'
-import { getAPIClient } from '../services/axios'
-import { useRouter } from 'next/router'; // Importe useRouter corretamente
+import { Fragment, useContext, useEffect, useState } from 'react';
+import Head from 'next/head';
+import { Disclosure, Menu, Transition } from '@headlessui/react';
+import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
+import { AuthContext } from '../contexts/AuthContext';
+import { destroyCookie, parseCookies } from 'nookies';
+import { GetServerSideProps } from 'next';
+import { getAPIClient } from '../services/axios';
+import { useRouter } from 'next/router';
 
 const navigation = ['Home', 'Procura'];
 const profile = ['Seu perfil', 'Configuração'];
@@ -29,7 +29,7 @@ export default function Dashboard() {
       console.log(pacote);
       const { ['kafra.token']: token } = parseCookies();
       const response = await fetch(`https://teste-api-5421.onrender.com/mercadoPagoCriaPagamento?text=${encodeURIComponent(pacote)}`, {
-        method: 'post',
+        method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -51,13 +51,15 @@ export default function Dashboard() {
           'Authorization': `Bearer ${token}`
         }
       });
-      router.reload()
+      router.reload();
     } catch (error) {
       console.error('Error:', error);
     }
   };
 
   const [tasks, setTasks] = useState([]); 
+  const [suspendedTasks, setSuspendedTasks] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -65,9 +67,9 @@ export default function Dashboard() {
           const newTasks = [];
           for (let i = 0; i < user.objProcura.length; i++) {
             const item = await user.objProcura[i];
-            newTasks.push({ text: `Item procurado: ${item.nome} | ${item.moeda}: ${item.valor}` });
+            newTasks.push({ id: i, text: `Item procurado: ${item.nome} | ${item.moeda}: ${item.valor}` });
           }
-          setTasks(prevTasks => [...prevTasks, ...newTasks]);
+          setTasks(newTasks);
         } else {
           console.error('User or user.objProcura is null.');
         }
@@ -77,7 +79,30 @@ export default function Dashboard() {
     };
     fetchData();
   }, [user]);
-  
+
+  const handleSuspend = (taskId, text) => {
+    setSuspendedTasks((prev) => (
+      prev.includes(taskId) ? prev.filter(id => id !== taskId) : [...prev, taskId]
+    ));
+
+    const handleDeletes = async () => {
+      try {
+        console.log(text);
+        const { ['kafra.token']: token } = parseCookies();
+        await fetch(`https://teste-api-5421.onrender.com/deleteProcura?text=${encodeURIComponent(text)}`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        router.reload();
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+    handleDeletes();
+  };
+
 
   // Add handleAdd function for form submission
   const handleAdd = async (event) => {
@@ -330,20 +355,32 @@ export default function Dashboard() {
         </div>
          {/* cadastro fim */}
          {/* list inicio */}
-        <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-80">
+         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-80">
           <div className="px-4 py-6 sm:px-0">
             <div className="border-4 border-dashed border-gray-200 rounded-lg h-auto">
-              <h1 className="text-3xl font-bold leading-tight text-gray-900 mb-4">Lista Procurada: {`${user?.objPacote[0].totalusado || '0'}/${user?.objPacote[0].qtdproc || '0'} usados`}</h1>
+              <h1 className="text-3xl font-bold leading-tight text-gray-900 mb-4">
+                Lista Procurada: {`${user?.objPacote[0]?.totalusado || '0'}/${user?.objPacote[0]?.qtdproc || '0'} usados`}
+              </h1>
               <ul className="space-y-4">
-              {Array.isArray(tasks) && tasks.map((task) => (
+                {Array.isArray(tasks) && tasks.map((task) => (
                   task && (
-                      <li key={task.id} className="flex items-center justify-between p-4 bg-white shadow rounded-lg">
-                          <span>{task.text}</span>
-                          <button onClick={() => handleDelete(task.text)}>Delete</button>
-                      </li>
+                    <li
+                      key={task.id}
+                      className={`flex items-center justify-between p-4 shadow rounded-lg ${suspendedTasks.includes(task.id) ? 'bg-red-500' : 'bg-white'}`}
+                    >
+                      <span>{task.text}</span>
+                      <div>
+                        <button onClick={() => handleSuspend(task.id, task.text)} className="mr-2">
+                          {suspendedTasks.includes(task.id) ? 'Ativar' : 'Suspender'}
+                        </button>
+                        <button onClick={() => handleDelete(task.text)}>
+                          Delete
+                        </button>
+                      </div>
+                    </li>
                   )
-              ))}
-            </ul>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
