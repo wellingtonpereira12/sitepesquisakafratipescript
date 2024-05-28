@@ -18,7 +18,6 @@ function classNames(...classes) {
 export default function Dashboard() {
   const { user } = useContext(AuthContext);
   const router = useRouter();
-  console.log(user?.objPacote[0].idpacote);
 
   const handleLogout = () => {
     destroyCookie(null, 'kafra.token');
@@ -368,6 +367,7 @@ export default function Dashboard() {
           </a>
         </div>
       </div>
+      {user?.objPacote[0].vencimento == '' ? (          
       <div className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-4xl text-center">
@@ -486,6 +486,17 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
+      ) : (
+        // Renderização para o caso em que o valor é falso
+        <div className="bg-white py-24 sm:py-32">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="mx-auto max-w-4xl text-center">
+              <h2 className="text-base font-semibold leading-7 text-teal-600">Obrigado!</h2>
+              <p className="mt-2 text-4xl font-bold tracking-tight text-blue-500 sm:text-5xl">{`Você é ${user?.objPacote[0].pacotes || ''} até ${user?.objPacote[0].vencimento || ''}` }</p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
