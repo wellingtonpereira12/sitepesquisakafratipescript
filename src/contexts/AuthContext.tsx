@@ -11,6 +11,7 @@ type User = {
     avatar_url: string;
     objProcura;
     objAlerta;
+    objPacote;
 }
 
 type SignInData = {

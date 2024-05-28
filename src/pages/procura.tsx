@@ -18,6 +18,7 @@ function classNames(...classes) {
 export default function Dashboard() {
   const { user } = useContext(AuthContext);
   const router = useRouter();
+  console.log(user?.objPacote[0].idpacote);
 
   const handleLogout = () => {
     destroyCookie(null, 'kafra.token');
@@ -28,7 +29,7 @@ export default function Dashboard() {
     try {
       console.log(pacote);
       const { ['kafra.token']: token } = parseCookies();
-      const response = await fetch(`https://teste-api-5421.onrender.com/mercadoPagoCriaPagamento?text=${encodeURIComponent(pacote)}`, {
+      const response = await fetch(`http://localhost:3002/mercadoPagoCriaPagamento?text=${encodeURIComponent(pacote)}`, {
         method: 'post',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -45,7 +46,7 @@ export default function Dashboard() {
     try {
       console.log(text);
       const { ['kafra.token']: token } = parseCookies();
-      await fetch(`https://teste-api-5421.onrender.com/deleteProcura?text=${encodeURIComponent(text)}`, {
+      await fetch(`http://localhost:3002/deleteProcura?text=${encodeURIComponent(text)}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -76,7 +77,6 @@ export default function Dashboard() {
         console.error('Error:', error);
       }
     };
-  
     fetchData();
   }, [user]);
   
@@ -94,7 +94,7 @@ export default function Dashboard() {
 
     try {
         const { ['kafra.token']: token } = parseCookies();
-        const response = await fetch('https://teste-api-5421.onrender.com/gravaProcura', {
+        const response = await fetch('http://localhost:3002/gravaProcura', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -335,7 +335,7 @@ export default function Dashboard() {
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-80">
           <div className="px-4 py-6 sm:px-0">
             <div className="border-4 border-dashed border-gray-200 rounded-lg h-auto">
-              <h1 className="text-3xl font-bold leading-tight text-gray-900 mb-4">Lista Procurada</h1>
+              <h1 className="text-3xl font-bold leading-tight text-gray-900 mb-4">Lista Procurada: {`${user?.objPacote[0].totalusado || '0'}/${user?.objPacote[0].qtdproc || '0'} usados`}</h1>
               <ul className="space-y-4">
               {Array.isArray(tasks) && tasks.map((task) => (
                   task && (
